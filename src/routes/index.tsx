@@ -1,24 +1,46 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Settings2 } from "lucide-react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Vincis — Configuração de Preços" },
+      {
+        name: "description",
+        content:
+          "Ambiente de configuração da página de preços da Vincis: regras, faixas e valores da calculadora.",
+      },
+      { property: "og:title", content: "Vincis — Configuração de Preços" },
+      {
+        property: "og:description",
+        content: "Ambiente de configuração da página de preços da Vincis.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="flex min-h-dvh items-center justify-center bg-background px-5">
+      <div className="max-w-md text-center">
+        <div className="mx-auto grid h-12 w-12 place-items-center rounded-xl bg-gradient-gold text-lg font-bold text-primary-foreground">
+          V
+        </div>
+        <h1 className="mt-6 text-3xl font-bold tracking-tight text-foreground">
+          Configuração de preços Vincis
+        </h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Painel administrativo para cadastrar os valores e regras que alimentam a página pública de
+          preços.
+        </p>
+        <Link
+          to="/admin"
+          className="mt-7 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        >
+          <Settings2 className="size-4" /> Abrir o admin <ArrowRight className="size-4" />
+        </Link>
+      </div>
     </div>
   );
 }
